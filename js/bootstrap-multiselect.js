@@ -237,15 +237,18 @@
 			// Bind the change event on the dropdown elements.
 			$('.multiselect-container ul li input', this.$container).on('change', $.proxy(function (event) {
 				var checked = $(event.target).prop('checked') || false;
+				this.$select.trigger('change');
 				var isSelectAllOption = $(event.target).val() == this.options.selectAllValue;
 				
 				// Apply or unapply the configured selected class.
 				if (this.options.selectedClass) {
 					if (checked) {
 						$(event.target).parents('li').addClass(this.options.selectedClass);
+						this.$select.trigger('select', $(event.target).val());
 					}
 					else {
 						$(event.target).parents('li').removeClass(this.options.selectedClass);
+						this.$select.trigger('deselect', $(event.target).val());
 					}
 				}
 
